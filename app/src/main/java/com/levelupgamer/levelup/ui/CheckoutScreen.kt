@@ -146,7 +146,7 @@ fun CheckoutScreen(navController: NavController, cartItems: List<Pair<Product, I
             if (discountAmount > 0) {
                 Text(
                     text = "Descuento (${selectedReward?.title ?: ""}): -${formatter.format(discountAmount)}", 
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.tertiary
                 )
             }
             Text("Total: ${formatter.format(total)}", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)

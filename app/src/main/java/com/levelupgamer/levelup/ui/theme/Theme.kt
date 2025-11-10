@@ -11,12 +11,12 @@ import androidx.core.view.WindowCompat
 
 // Paleta gamer
 private val GamerDarkColorScheme = darkColorScheme(
-    primary = BlueElectric,
-    secondary = GreenLime,
+    primary = GreenLime,
+    secondary = BlueElectric,
     background = BlackPure,
     surface = BlackPure,
-    onPrimary = WhitePure,
-    onSecondary = BlackPure,
+    onPrimary = BlackPure,
+    onSecondary = WhitePure,
     onBackground = WhitePure,
     onSurface = WhitePure
 )
