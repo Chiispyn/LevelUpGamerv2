@@ -12,6 +12,9 @@ interface ReviewDao {
     @Query("SELECT * FROM reviews WHERE productCode = :productCode ORDER BY date DESC")
     fun getReviewsForProduct(productCode: String): Flow<List<Review>>
 
+    @Query("SELECT AVG(rating) FROM reviews WHERE productCode = :productCode")
+    fun getAverageRatingForProduct(productCode: String): Flow<Double?>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(review: Review)
 

@@ -17,11 +17,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.levelupgamer.levelup.MyApp
-import com.levelupgamer.levelup.ui.viewmodel.ViewModelFactory
 import com.levelupgamer.levelup.data.repository.ProductRepository
 import com.levelupgamer.levelup.model.Product
+import com.levelupgamer.levelup.ui.cart.CartViewModel
 import com.levelupgamer.levelup.ui.reviews.ReviewSection
 import com.levelupgamer.levelup.ui.reviews.ReviewViewModel
+import com.levelupgamer.levelup.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
@@ -32,6 +33,7 @@ fun ProductDetailScreen(productCode: String, navController: NavController) {
     val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao()) }
     val factory = ViewModelFactory(context)
     val reviewViewModel: ReviewViewModel = viewModel(factory = factory)
+    val cartViewModel: CartViewModel = viewModel(factory = factory)
 
     var product by remember { mutableStateOf<Product?>(null) }
 
@@ -43,6 +45,9 @@ fun ProductDetailScreen(productCode: String, navController: NavController) {
 
     LaunchedEffect(Unit) {
         reviewViewModel.toastMessage.collect { message ->
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+        cartViewModel.toastMessage.collect { message ->
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -66,6 +71,18 @@ fun ProductDetailScreen(productCode: String, navController: NavController) {
                 Text(p.name, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.height(8.dp))
                 Text(formatter.format(p.price), style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.primary)
+                Spacer(Modifier.height(8.dp))
+                Text("Stock: ${p.quantity} unidades", style = MaterialTheme.typography.titleMedium)
+                Spacer(Modifier.height(16.dp))
+
+                Button(
+                    onClick = { cartViewModel.onProductAdded(p.code) },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = p.quantity > 0
+                ) {
+                    Text("Añadir al carrito")
+                }
+
                 Spacer(Modifier.height(16.dp))
                 Text("Descripción", style = MaterialTheme.typography.titleLarge)
                 Text(p.description, style = MaterialTheme.typography.bodyLarge)

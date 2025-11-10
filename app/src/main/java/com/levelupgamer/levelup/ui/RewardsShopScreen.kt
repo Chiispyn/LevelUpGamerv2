@@ -25,7 +25,7 @@ fun RewardsShopScreen() {
     RewardsShopContent(
         rewards = uiState.rewards,
         userPoints = uiState.userPoints,
-        onRedeem = viewModel::purchaseReward // Corregido de redeemReward a purchaseReward
+        onRedeem = viewModel::purchaseReward
     )
 }
 

@@ -1,4 +1,4 @@
-package com.levelupgamer.app.ui
+package com.levelupgamer.levelup.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,10 +12,13 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.levelupgamer.levelup.MyApp
+import com.levelupgamer.levelup.data.repository.ReviewRepository
 import com.levelupgamer.levelup.model.Product
 
 @Composable
@@ -25,6 +28,9 @@ fun HomeScreen(
     cartProducts: List<Product>,
     onProductAdded: (String) -> Unit
 ) {
+    val context = LocalContext.current
+    val reviewRepository = remember { ReviewRepository((context.applicationContext as MyApp).database.reviewDao()) }
+
     val featuredProducts = products.shuffled().take(4)
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
@@ -42,11 +48,14 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(featuredProducts, key = { it.code }) { product ->
+                val averageRating by reviewRepository.getAverageRatingForProduct(product.code).collectAsState(initial = null)
+
                 ProductCard(
-                    product = product, 
-                    navController = navController, 
+                    product = product,
+                    navController = navController,
                     isInCart = cartProducts.any { it.code == product.code },
-                    onProductAdded = { onProductAdded(product.code) }
+                    onProductAdded = { onProductAdded(product.code) },
+                    averageRating = averageRating
                 )
             }
         }

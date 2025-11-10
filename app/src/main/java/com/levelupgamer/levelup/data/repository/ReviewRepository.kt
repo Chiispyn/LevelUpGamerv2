@@ -10,6 +10,10 @@ class ReviewRepository(private val reviewDao: ReviewDao) {
         return reviewDao.getReviewsForProduct(productCode)
     }
 
+    fun getAverageRatingForProduct(productCode: String): Flow<Double?> {
+        return reviewDao.getAverageRatingForProduct(productCode)
+    }
+
     suspend fun addReview(review: Review) {
         reviewDao.insert(review)
     }

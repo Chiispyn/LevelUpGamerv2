@@ -25,7 +25,7 @@ object InitialData {
             Product(
                 code = "AC001", category = "Accesorios", name = "Control Inalámbrico Xbox Series X", price = 59990, quantity = 20,
                 description = "Diseño modernizado, gatillos texturizados y un D-pad híbrido. La mejor herramienta para tus victorias en Xbox.", 
-                imageResId = R.drawable.xboxx
+                imageResId = R.drawable.joystick
             ),
             Product(
                 code = "AC002", category = "Accesorios", name = "Auriculares HyperX Cloud II", price = 79990, quantity = 8,

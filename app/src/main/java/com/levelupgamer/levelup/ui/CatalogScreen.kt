@@ -1,6 +1,7 @@
-package com.levelupgamer.app.ui
+package com.levelupgamer.levelup.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -10,16 +11,20 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.levelupgamer.levelup.MyApp
+import com.levelupgamer.levelup.data.repository.ReviewRepository
 import com.levelupgamer.levelup.model.Product
 import com.levelupgamer.levelup.ui.theme.BlueElectric
 import com.levelupgamer.levelup.ui.theme.GreenLime
@@ -34,6 +39,9 @@ fun CatalogScreen(
     cartProductCodes: List<String>,
     onProductAdded: (String) -> Unit
 ) {
+    val context = LocalContext.current
+    val reviewRepository = remember { ReviewRepository((context.applicationContext as MyApp).database.reviewDao()) }
+
     var searchQuery by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf("Todos") }
 
@@ -72,7 +80,7 @@ fun CatalogScreen(
                 )
             }
         }
-        
+
         Divider(modifier = Modifier.padding(vertical = 8.dp))
 
         LazyVerticalGrid(
@@ -83,30 +91,34 @@ fun CatalogScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(filteredProducts, key = { it.code }) { product ->
+                val averageRating by reviewRepository.getAverageRatingForProduct(product.code).collectAsState(initial = null)
+
                 ProductCard(
                     product = product,
                     navController = navController,
                     isInCart = cartProductCodes.contains(product.code),
-                    onProductAdded = { onProductAdded(product.code) }
+                    onProductAdded = { onProductAdded(product.code) },
+                    averageRating = averageRating
                 )
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductCard(
     product: Product,
     navController: NavController,
     isInCart: Boolean,
-    onProductAdded: () -> Unit
+    onProductAdded: () -> Unit,
+    averageRating: Double?
 ) {
     val formatter = remember { NumberFormat.getCurrencyInstance(Locale("es", "CL")) }
 
     Card(
-        onClick = { navController.navigate("productDetail/${product.code}") },
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { navController.navigate("productDetail/${product.code}") },
         colors = CardDefaults.cardColors(containerColor = Color.DarkGray)
     ) {
         Column {
@@ -118,10 +130,9 @@ fun ProductCard(
             )
             Column(modifier = Modifier.padding(12.dp)) {
                 Text(product.name, fontWeight = FontWeight.Bold, maxLines = 1)
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.Star, contentDescription = "Rating", tint = Color.Yellow)
-                    Text("%.1f".format(product.averageRating), style = MaterialTheme.typography.bodySmall)
-                }
+
+                RatingBar(rating = averageRating ?: 0.0)
+
                 if (product.quantity in 1..5) {
                     Text("¡Quedan solo ${product.quantity}!", style = MaterialTheme.typography.bodySmall, color = Color.Yellow)
                 }
@@ -150,6 +161,21 @@ fun ProductCard(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun RatingBar(rating: Double, maxRating: Int = 5) {
+    Row {
+        for (i in 1..maxRating) {
+            val icon = if (i <= rating) Icons.Filled.Star else Icons.Outlined.StarOutline
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = Color.Yellow,
+                modifier = Modifier.size(16.dp)
+            )
         }
     }
 }

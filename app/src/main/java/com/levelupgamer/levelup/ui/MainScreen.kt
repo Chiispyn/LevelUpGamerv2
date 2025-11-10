@@ -18,6 +18,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.levelupgamer.levelup.MyApp
 import com.levelupgamer.levelup.data.repository.ProductRepository
+import com.levelupgamer.levelup.ui.CatalogScreen
+import com.levelupgamer.levelup.ui.HomeScreen
 import com.levelupgamer.levelup.ui.address.AddressScreen
 import com.levelupgamer.levelup.ui.cart.CartScreen
 import com.levelupgamer.levelup.ui.cart.CartViewModel
