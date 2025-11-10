@@ -12,5 +12,5 @@ data class Order(
     val subtotal: Double,
     val shippingCost: Double,
     val total: Double,
-    val status: String = OrderStatus.PROCESANDO.name // Corregido a PROCESANDO
+    val status: String = OrderStatus.PROCESANDO.name
 )
