@@ -42,6 +42,10 @@ fun RewardsScreen(navController: NavController) {
             Spacer(Modifier.height(16.dp))
             Text("Tu Nivel: ${userLevel.levelName}", style = MaterialTheme.typography.titleLarge, color = userLevel.color)
             Text("Puntos Actuales: ${uiState.userPoints}", style = MaterialTheme.typography.titleMedium)
+            Spacer(Modifier.height(16.dp))
+            Button(onClick = { navController.navigate("rewardsShop") }) {
+                Text("Ir a la Tienda de Recompensas")
+            }
             Spacer(Modifier.height(24.dp))
             Text("Niveles Disponibles", style = MaterialTheme.typography.headlineSmall)
         }

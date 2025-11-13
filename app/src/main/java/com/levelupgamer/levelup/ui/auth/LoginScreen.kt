@@ -47,7 +47,7 @@ fun LoginScreen(navController: NavController) {
                 painter = painterResource(id = R.drawable.logo), // 🔹de tu imagen🔹
                 contentDescription = "Logo Level-Up Gamer",
                 modifier = Modifier
-                    .size(120.dp) // Ajusta el tamaño según lo necesites
+                    .size(160.dp) // Ajusta el tamaño según lo necesites
                     .padding(bottom = 16.dp)
             )
 
