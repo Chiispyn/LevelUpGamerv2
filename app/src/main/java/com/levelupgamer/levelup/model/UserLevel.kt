@@ -10,10 +10,10 @@ enum class UserLevel(
     val discountPercentage: Int,
     val color: Color
 ) {
-    BRONZE("Bronze", 0, 0, Color.Gray),
-    SILVER("Silver", 5000, 5, Color.LightGray),
-    GOLD("Gold", 20000, 10, Color.Yellow),
-    VIP("V.I.P.", 50000, 15, BlueElectric);
+    BRONZE("Bronce", 0, 0, Color.Gray),
+    SILVER("Plata", 5000, 5, Color.LightGray),
+    GOLD("Oro", 20000, 10, Color.Yellow),
+    DIAMOND("Diamante", 50000, 15, BlueElectric);
 
     companion object {
         fun fromPoints(points: Int): UserLevel {

@@ -86,7 +86,7 @@ fun LevelCard(level: UserLevel) {
                 UserLevel.BRONZE -> Text("Acceso al programa de puntos.")
                 UserLevel.SILVER -> Text("Descuento del 5% en todos los pedidos.")
                 UserLevel.GOLD -> Text("Descuento del 10% y soporte prioritario.")
-                UserLevel.VIP -> Text("Descuento del 15%, regalo de cumpleaños y acceso a eventos VIP.")
+                UserLevel.DIAMOND -> Text("Descuento del 15%, regalo de cumpleaños y acceso a eventos VIP.")
             }
         }
     }
