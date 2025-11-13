@@ -13,7 +13,7 @@ enum class UserLevel(
     BRONZE("Bronze", 0, 0, Color.Gray),
     SILVER("Silver", 5000, 5, Color.LightGray),
     GOLD("Gold", 20000, 10, Color.Yellow),
-    DIAMOND("DIAMOND", 50000, 15, BlueElectric);
+    DIAMOND("Diamond.", 50000, 15, BlueElectric);
 
     companion object {
         fun fromPoints(points: Int): UserLevel {

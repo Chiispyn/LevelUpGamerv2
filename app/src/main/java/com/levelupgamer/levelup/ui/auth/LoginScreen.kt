@@ -1,17 +1,20 @@
 package com.levelupgamer.levelup.ui.auth
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.levelupgamer.levelup.model.UserAddress
 import com.levelupgamer.levelup.ui.viewmodel.ViewModelFactory
+import com.levelupgamer.levelup.R // 👈 Asegúrate de importar tu archivo R
 import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,15 +36,42 @@ fun LoginScreen(navController: NavController) {
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(24.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // 🖼️ Imagen del logo antes del texto
+            Image(
+                painter = painterResource(id = R.drawable.logo), // 🔹de tu imagen🔹
+                contentDescription = "Logo Level-Up Gamer",
+                modifier = Modifier
+                    .size(160.dp) // Ajusta el tamaño según lo necesites
+                    .padding(bottom = 16.dp)
+            )
+
             Text("Level-Up Gamer", style = MaterialTheme.typography.headlineLarge)
             Spacer(Modifier.height(16.dp))
 
-            OutlinedTextField(value = uiState.email, onValueChange = viewModel::onEmailChange, label = { Text("Email") }, singleLine = true, modifier = Modifier.fillMaxWidth(), isError = uiState.error != null)
-            OutlinedTextField(value = uiState.password, onValueChange = viewModel::onPasswordChange, label = { Text("Contraseña") }, singleLine = true, visualTransformation = PasswordVisualTransformation(), modifier = Modifier.fillMaxWidth(), isError = uiState.error != null)
+            OutlinedTextField(
+                value = uiState.email,
+                onValueChange = viewModel::onEmailChange,
+                label = { Text("Email") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+                isError = uiState.error != null
+            )
+
+            OutlinedTextField(
+                value = uiState.password,
+                onValueChange = viewModel::onPasswordChange,
+                label = { Text("Contraseña") },
+                singleLine = true,
+                visualTransformation = PasswordVisualTransformation(),
+                modifier = Modifier.fillMaxWidth(),
+                isError = uiState.error != null
+            )
 
             uiState.error?.let {
                 Text(it, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(vertical = 8.dp))
@@ -63,8 +93,6 @@ fun LoginScreen(navController: NavController) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Button(onClick = { viewModel.onAdminShortcutClick() }) { Text("Admin") }
                 Button(onClick = {
-                    // Este es un atajo de desarrollo, idealmente la creación de datos de prueba
-                    // debería estar completamente contenida en el ViewModel.
                     viewModel.onTestUserClick(
                         email = "cliente@ejemplo.com",
                         name = "Cliente de Prueba",
