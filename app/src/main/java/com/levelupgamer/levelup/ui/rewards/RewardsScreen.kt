@@ -42,6 +42,10 @@ fun RewardsScreen(navController: NavController) {
             Spacer(Modifier.height(16.dp))
             Text("Tu Nivel: ${userLevel.levelName}", style = MaterialTheme.typography.titleLarge, color = userLevel.color)
             Text("Puntos Actuales: ${uiState.userPoints}", style = MaterialTheme.typography.titleMedium)
+            Spacer(Modifier.height(16.dp))
+            Button(onClick = { navController.navigate("rewardsShop") }) {
+                Text("Ir a la Tienda de Recompensas")
+            }
             Spacer(Modifier.height(24.dp))
             Text("Niveles Disponibles", style = MaterialTheme.typography.headlineSmall)
         }
@@ -86,7 +90,7 @@ fun LevelCard(level: UserLevel) {
                 UserLevel.BRONZE -> Text("Acceso al programa de puntos.")
                 UserLevel.SILVER -> Text("Descuento del 5% en todos los pedidos.")
                 UserLevel.GOLD -> Text("Descuento del 10% y soporte prioritario.")
-                UserLevel.VIP -> Text("Descuento del 15%, regalo de cumpleaños y acceso a eventos VIP.")
+                UserLevel.DIAMOND -> Text("Descuento del 15%, regalo de cumpleaños y acceso a eventos VIP.")
             }
         }
     }

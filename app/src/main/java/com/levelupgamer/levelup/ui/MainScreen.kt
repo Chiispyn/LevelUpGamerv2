@@ -24,6 +24,7 @@ import com.levelupgamer.levelup.ui.address.AddressScreen
 import com.levelupgamer.levelup.ui.cart.CartScreen
 import com.levelupgamer.levelup.ui.cart.CartViewModel
 import com.levelupgamer.levelup.ui.navigation.NavScreen
+import com.levelupgamer.levelup.ui.rewards.RewardsScreen
 import com.levelupgamer.levelup.ui.rewardsshop.RewardsShopScreen
 import com.levelupgamer.levelup.ui.viewmodel.ViewModelFactory
 import com.levelupgamer.levelup.ui.ProductDetailScreen
@@ -84,7 +85,9 @@ fun MainScreen(mainNavController: NavController) {
                         selected = currentRoute == screen.route,
                         onClick = {
                             navController.navigate(screen.route) {
-                                popUpTo(navController.graph.startDestinationId) { saveState = true }
+                                popUpTo(screen.route) {
+                                    inclusive = true
+                                }
                                 launchSingleTop = true
                                 restoreState = true
                             }
@@ -97,7 +100,8 @@ fun MainScreen(mainNavController: NavController) {
         NavHost(navController = navController, startDestination = NavScreen.Home.route, modifier = Modifier.padding(innerPadding)) {
             composable(NavScreen.Home.route) { HomeScreen(navController, products, cartState.cartItems.map { it.first }, cartViewModel::onProductAdded) }
             composable(NavScreen.Store.route) { CatalogScreen(navController, products, cartState.cartItems.map { it.first.code }, cartViewModel::onProductAdded) }
-            composable(NavScreen.Redeem.route) { RewardsShopScreen() }
+            composable(NavScreen.Redeem.route) { RewardsScreen(navController) }
+            composable("rewardsShop") { RewardsShopScreen() }
             composable(NavScreen.Community.route) { CommunityScreen(navController) }
             composable(NavScreen.Profile.route) { 
                 ProfileScreen(navController = navController, onLogout = { 
@@ -163,6 +167,7 @@ private fun getScreenTitle(route: String?, bottomNavScreens: List<NavScreen>): S
         route == "myOrders" -> "Mis Compras"
         route == "editProfile" -> "Editar Perfil"
         route == "address" -> "Gestión de Dirección"
+        route == "rewardsShop" -> "Tienda de Recompensas"
         route?.startsWith("orderConfirmation") == true -> "Compra Finalizada"
         route?.startsWith("productDetail") == true -> "Detalle del Producto"
         route?.startsWith("orderDetail") == true -> "Detalle del Pedido"
