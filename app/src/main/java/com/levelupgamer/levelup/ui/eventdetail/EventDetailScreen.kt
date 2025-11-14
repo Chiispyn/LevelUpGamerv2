@@ -11,19 +11,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.levelupgamer.levelup.model.Event
-import com.levelupgamer.levelup.ui.rewards.RewardsViewModel
-import com.levelupgamer.levelup.ui.viewmodel.ViewModelFactory
 
 @Composable
 fun EventDetailScreen(eventId: String, onNavigateBack: () -> Unit) {
     val context = LocalContext.current
-    val factory = ViewModelFactory(context)
-    val viewModel: RewardsViewModel = viewModel(factory = factory)
+    val factory = remember(eventId) { EventDetailViewModelFactory(eventId, context) }
+    val viewModel: EventDetailViewModel = viewModel(factory = factory)
     val uiState by viewModel.uiState.collectAsState()
-
-    val event = remember(uiState.events, eventId) {
-        uiState.events.find { it.id == eventId }
-    }
 
     LaunchedEffect(Unit) {
         viewModel.toastMessage.collect { message ->
@@ -33,16 +27,19 @@ fun EventDetailScreen(eventId: String, onNavigateBack: () -> Unit) {
 
     Scaffold {
         Column(modifier = Modifier.padding(it)) {
-            if (event == null) {
+            if (uiState.isLoading) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
                 }
+            } else if (uiState.event == null) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(uiState.userMessage ?: "El evento no está disponible.")
+                }
             } else {
-                val isAlreadyInscribed = uiState.inscribedEventIds.contains(event!!.id)
                 EventDetailContent(
-                    event = event!!, 
-                    isAlreadyInscribed = isAlreadyInscribed,
-                    onInscribeClick = { viewModel.inscribeToEvent(event!!) },
+                    event = uiState.event!!,
+                    isAlreadyInscribed = uiState.isUserInscribed,
+                    onInscribeClick = { viewModel.inscribeToEvent() },
                     onNavigateBack = onNavigateBack
                 )
             }
@@ -52,9 +49,9 @@ fun EventDetailScreen(eventId: String, onNavigateBack: () -> Unit) {
 
 @Composable
 private fun EventDetailContent(
-    event: Event, 
+    event: Event,
     isAlreadyInscribed: Boolean,
-    onInscribeClick: () -> Unit, 
+    onInscribeClick: () -> Unit,
     onNavigateBack: () -> Unit
 ) {
     Column(
@@ -66,7 +63,7 @@ private fun EventDetailContent(
         Spacer(Modifier.height(8.dp))
         Text(event.description, style = MaterialTheme.typography.bodyLarge)
         Spacer(Modifier.height(16.dp))
-        
+
         InfoRow("Ubicación:", event.locationName)
         InfoRow("Fecha:", "${event.date} a las ${event.time}")
         InfoRow("Puntos por Participar:", "+${event.inscriptionPoints}", isHighlight = true)
@@ -75,7 +72,7 @@ private fun EventDetailContent(
         Spacer(Modifier.weight(1f))
 
         Button(
-            onClick = onInscribeClick, 
+            onClick = onInscribeClick,
             enabled = !isAlreadyInscribed,
             modifier = Modifier.fillMaxWidth()
         ) {

@@ -15,4 +15,7 @@ interface UserEventDao {
 
     @Query("SELECT * FROM user_events WHERE userId = :userId")
     fun getUserEvents(userId: Int): Flow<List<UserEvent>>
+
+    @Query("SELECT COUNT(*) FROM user_events WHERE userId = :userId AND eventId = :eventId")
+    suspend fun isUserInscribed(userId: Int, eventId: String): Int
 }
