@@ -53,7 +53,7 @@ fun EventCard(event: Event, navController: NavController) {
             Spacer(Modifier.height(8.dp))
             Text(event.description)
             Spacer(Modifier.height(16.dp))
-            Button(onClick = { navController.navigate("event/${event.id}") }, modifier = Modifier.fillMaxWidth()) {
+            Button(onClick = { navController.navigate("eventDetail/${event.id}") }, modifier = Modifier.fillMaxWidth()) {
                 Text("Ver Detalles e Inscribirse")
             }
         }
