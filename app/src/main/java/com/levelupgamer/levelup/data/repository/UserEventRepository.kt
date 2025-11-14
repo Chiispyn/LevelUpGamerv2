@@ -10,6 +10,10 @@ class UserEventRepository(private val userEventDao: UserEventDao) {
         return userEventDao.getUserEvents(userId)
     }
 
+    suspend fun isUserInscribed(userId: Int, eventId: String): Boolean {
+        return userEventDao.isUserInscribed(userId, eventId) > 0
+    }
+
     suspend fun inscribeUserToEvent(userId: Int, eventId: String) {
         val userEvent = UserEvent(userId = userId, eventId = eventId)
         userEventDao.insert(userEvent)
