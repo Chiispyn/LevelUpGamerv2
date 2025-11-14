@@ -13,7 +13,6 @@ import com.levelupgamer.app.ui.AdminFeature
 import com.levelupgamer.app.ui.MainScreen
 import com.levelupgamer.levelup.ui.auth.LoginScreen
 import com.levelupgamer.levelup.ui.auth.RegisterScreen
-import com.levelupgamer.levelup.ui.eventdetail.EventDetailScreen
 import com.levelupgamer.levelup.ui.theme.LevelUpGamerTheme
 import com.levelupgamer.levelup.util.UserManager
 
@@ -43,16 +42,5 @@ fun AppNavHost() {
         composable("register") { RegisterScreen(navController) }
         composable("main") { MainScreen(navController) }
         composable("admin") { AdminFeature(mainNavController = navController) }
-        composable(
-            route = "eventDetail/{eventId}",
-            arguments = listOf(navArgument("eventId") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val eventId = backStackEntry.arguments?.getString("eventId")
-            if (eventId != null) {
-                EventDetailScreen(eventId = eventId, onNavigateBack = { navController.popBackStack() })
-            } else {
-                // Handle error: eventId is null
-            }
-        }
     }
 }
