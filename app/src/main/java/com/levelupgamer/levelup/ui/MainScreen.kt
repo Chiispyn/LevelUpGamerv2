@@ -100,7 +100,7 @@ fun MainScreen(mainNavController: NavController) {
         NavHost(navController = navController, startDestination = NavScreen.Home.route, modifier = Modifier.padding(innerPadding)) {
             composable(NavScreen.Home.route) { HomeScreen(navController, products, cartState.cartItems.map { it.first }, cartViewModel::onProductAdded) }
             composable(NavScreen.Store.route) { CatalogScreen(navController, products, cartState.cartItems.map { it.first.code }, cartViewModel::onProductAdded) }
-            composable(NavScreen.Redeem.route) { RewardsScreen(mainNavController) } // FIX: Pass mainNavController
+            composable(NavScreen.Redeem.route) { RewardsScreen(navController) }
             composable("rewardsShop") { RewardsShopScreen() }
             composable(NavScreen.Community.route) { CommunityScreen(navController) }
             composable(NavScreen.Profile.route) { 
@@ -143,7 +143,7 @@ fun MainScreen(mainNavController: NavController) {
                 }
             }
             composable(
-                route = "event/{eventId}",
+                route = "eventDetail/{eventId}",
                 arguments = listOf(navArgument("eventId") { type = NavType.StringType })
             ) { backStackEntry ->
                 val eventId = backStackEntry.arguments?.getString("eventId")
@@ -171,7 +171,7 @@ private fun getScreenTitle(route: String?, bottomNavScreens: List<NavScreen>): S
         route?.startsWith("orderConfirmation") == true -> "Compra Finalizada"
         route?.startsWith("productDetail") == true -> "Detalle del Producto"
         route?.startsWith("orderDetail") == true -> "Detalle del Pedido"
-        route?.startsWith("event/") == true -> "Detalle del Evento" 
+        route?.startsWith("eventDetail/") == true -> "Detalle del Evento" 
         else -> "Level-Up Gamer"
     }
 }
