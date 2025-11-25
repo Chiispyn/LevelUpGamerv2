@@ -3,9 +3,9 @@ package com.levelupgamer.levelup.ui.rewards
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.levelupgamer.levelup.data.repository.EventRepository
-import com.levelupgamer.levelup.data.repository.UserEventRepository
-import com.levelupgamer.levelup.data.repository.UserRepository
+import com.levelupgamer.levelup.repository.EventRepository
+import com.levelupgamer.levelup.repository.UserEventRepository
+import com.levelupgamer.levelup.repository.UserRepository
 import com.levelupgamer.levelup.model.Event
 import com.levelupgamer.levelup.util.UserManager
 import kotlinx.coroutines.channels.Channel

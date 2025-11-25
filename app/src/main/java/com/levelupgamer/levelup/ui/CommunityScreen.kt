@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.levelupgamer.levelup.MyApp
-import com.levelupgamer.levelup.data.repository.EventRepository
+import com.levelupgamer.levelup.repository.EventRepository
 import com.levelupgamer.levelup.model.Event
 
 @Composable

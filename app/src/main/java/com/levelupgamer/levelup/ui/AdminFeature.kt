@@ -1,9 +1,6 @@
 package com.levelupgamer.app.ui
 
 import android.content.Context
-import android.net.Uri
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,8 +17,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -36,9 +31,12 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.levelupgamer.levelup.MyApp
 import com.levelupgamer.levelup.R
-import com.levelupgamer.levelup.data.repository.*
 import com.levelupgamer.levelup.model.*
-import kotlinx.coroutines.flow.first
+import com.levelupgamer.levelup.repository.EventRepository
+import com.levelupgamer.levelup.repository.OrderRepository
+import com.levelupgamer.levelup.repository.ProductRepository
+import com.levelupgamer.levelup.repository.RewardRepository
+import com.levelupgamer.levelup.repository.UserRepository
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.text.SimpleDateFormat

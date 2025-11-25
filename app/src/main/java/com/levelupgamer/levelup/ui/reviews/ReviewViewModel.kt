@@ -3,9 +3,9 @@ package com.levelupgamer.levelup.ui.reviews
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.levelupgamer.levelup.data.repository.ProductRepository
-import com.levelupgamer.levelup.data.repository.ReviewRepository
-import com.levelupgamer.levelup.data.repository.UserRepository
+import com.levelupgamer.levelup.repository.ProductRepository
+import com.levelupgamer.levelup.repository.ReviewRepository
+import com.levelupgamer.levelup.repository.UserRepository
 import com.levelupgamer.levelup.model.Review
 import com.levelupgamer.levelup.util.UserManager
 import kotlinx.coroutines.channels.Channel

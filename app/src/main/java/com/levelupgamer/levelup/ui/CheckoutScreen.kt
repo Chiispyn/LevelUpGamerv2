@@ -15,8 +15,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.levelupgamer.levelup.MyApp
-import com.levelupgamer.levelup.data.repository.*
 import com.levelupgamer.levelup.model.*
+import com.levelupgamer.levelup.repository.AddressRepository
+import com.levelupgamer.levelup.repository.OrderRepository
+import com.levelupgamer.levelup.repository.ProductRepository
+import com.levelupgamer.levelup.repository.RewardRepository
+import com.levelupgamer.levelup.repository.UserRepository
+import com.levelupgamer.levelup.repository.UserRewardRepository
 import com.levelupgamer.levelup.util.ShippingManager
 import com.levelupgamer.levelup.util.UserManager
 import kotlinx.coroutines.flow.combine

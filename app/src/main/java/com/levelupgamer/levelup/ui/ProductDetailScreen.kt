@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.levelupgamer.levelup.MyApp
-import com.levelupgamer.levelup.data.repository.ProductRepository
+import com.levelupgamer.levelup.repository.ProductRepository
 import com.levelupgamer.levelup.model.Product
 import com.levelupgamer.levelup.ui.cart.CartViewModel
 import com.levelupgamer.levelup.ui.reviews.ReviewSection

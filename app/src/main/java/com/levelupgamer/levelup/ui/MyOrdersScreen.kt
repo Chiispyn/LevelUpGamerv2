@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.levelupgamer.levelup.MyApp
-import com.levelupgamer.levelup.data.repository.OrderRepository
+import com.levelupgamer.levelup.repository.OrderRepository
 import com.levelupgamer.levelup.model.OrderWithItems
 import com.levelupgamer.levelup.util.UserManager
 import kotlinx.coroutines.flow.flowOf

@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.levelupgamer.levelup.MyApp
-import com.levelupgamer.levelup.data.repository.EventRepository
-import com.levelupgamer.levelup.data.repository.UserEventRepository
-import com.levelupgamer.levelup.data.repository.UserRepository
+import com.levelupgamer.levelup.repository.EventRepository
+import com.levelupgamer.levelup.repository.UserEventRepository
+import com.levelupgamer.levelup.repository.UserRepository
 
 class EventDetailViewModelFactory(
     private val eventId: String,

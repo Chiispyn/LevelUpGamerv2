@@ -18,7 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.levelupgamer.levelup.MyApp
-import com.levelupgamer.levelup.data.repository.ReviewRepository
+import com.levelupgamer.levelup.repository.ReviewRepository
 import com.levelupgamer.levelup.model.Product
 
 @Composable

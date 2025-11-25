@@ -14,7 +14,6 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -24,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.levelupgamer.levelup.MyApp
-import com.levelupgamer.levelup.data.repository.ReviewRepository
+import com.levelupgamer.levelup.repository.ReviewRepository
 import com.levelupgamer.levelup.model.Product
 import com.levelupgamer.levelup.ui.theme.BlueElectric
 import com.levelupgamer.levelup.ui.theme.GreenLime

@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.levelupgamer.levelup.MyApp
-import com.levelupgamer.levelup.data.repository.AddressRepository
-import com.levelupgamer.levelup.data.repository.UserRepository
+import com.levelupgamer.levelup.repository.AddressRepository
+import com.levelupgamer.levelup.repository.UserRepository
 import com.levelupgamer.levelup.model.User
 import com.levelupgamer.levelup.model.UserAddress
 import com.levelupgamer.levelup.util.UserManager

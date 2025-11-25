@@ -3,8 +3,8 @@ package com.levelupgamer.levelup.ui.cart
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.levelupgamer.levelup.data.repository.CartRepository
-import com.levelupgamer.levelup.data.repository.ProductRepository
+import com.levelupgamer.levelup.repository.CartRepository
+import com.levelupgamer.levelup.repository.ProductRepository
 import com.levelupgamer.levelup.model.Product
 import com.levelupgamer.levelup.util.UserManager
 import kotlinx.coroutines.flow.*

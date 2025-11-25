@@ -1,4 +1,4 @@
-package com.levelupgamer.levelup.data.repository
+package com.levelupgamer.levelup.repository
 
 import com.levelupgamer.levelup.data.local.dao.CartDao
 import com.levelupgamer.levelup.model.CartItem
