@@ -46,21 +46,21 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `onEmailChange updates email in uiState`() = runTest {
+    fun `al cambiar email actualiza email en uiState`() = runTest {
         val newEmail = "test@example.com"
         viewModel.onEmailChange(newEmail)
         assertEquals(newEmail, viewModel.uiState.value.email)
     }
 
     @Test
-    fun `onPasswordChange updates password in uiState`() = runTest {
+    fun `al cambiar password actualiza password en uiState`() = runTest {
         val newPassword = "password123"
         viewModel.onPasswordChange(newPassword)
         assertEquals(newPassword, viewModel.uiState.value.password)
     }
 
     @Test
-    fun `onLoginClick with empty email shows error`() = runTest {
+    fun `al hacer click en login con email vacio muestra error`() = runTest {
         viewModel.onEmailChange("")
         viewModel.onPasswordChange("password123")
         viewModel.onLoginClick()
@@ -72,7 +72,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `onLoginClick with short password shows error`() = runTest {
+    fun `al hacer click en login con password corto muestra error`() = runTest {
         viewModel.onEmailChange("test@example.com")
         viewModel.onPasswordChange("123")
         viewModel.onLoginClick()
@@ -83,7 +83,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `onLoginClick with valid credentials navigates to MAIN`() = runTest {
+    fun `al hacer click en login con credenciales validas navega a MAIN`() = runTest {
         val email = "user@example.com"
         val password = "password123"
         val user = User(id = 1, name = "Test User", email = email, passwordHash = "hash", rut = "", birthDate = "", phone = "")
@@ -101,7 +101,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `onLoginClick with invalid credentials shows error`() = runTest {
+    fun `al hacer click en login con credenciales invalidas muestra error`() = runTest {
         val email = "wrong@example.com"
         val password = "password123"
 

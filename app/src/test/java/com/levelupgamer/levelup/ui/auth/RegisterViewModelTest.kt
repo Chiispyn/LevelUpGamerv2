@@ -43,14 +43,14 @@ class RegisterViewModelTest {
     }
 
     @Test
-    fun `onRegisterClick with empty fields shows error`() = runTest {
+    fun `al hacer click en registro con campos vacios muestra error`() = runTest {
         viewModel.onRegisterClick()
         testDispatcher.scheduler.advanceUntilIdle()
         assertEquals("Todos los campos son obligatorios", viewModel.uiState.value.error)
     }
 
     @Test
-    fun `onRegisterClick with password mismatch shows error`() = runTest {
+    fun `al hacer click en registro con contraseñas que no coinciden muestra error`() = runTest {
         viewModel.onNameChange("Test User")
         viewModel.onEmailChange("test@example.com")
         viewModel.onRutChange("100000040") // Verified Valid RUT
@@ -66,7 +66,7 @@ class RegisterViewModelTest {
     }
 
     @Test
-    fun `onRegisterClick with underage birthdate shows error`() = runTest {
+    fun `al hacer click en registro con fecha de nacimiento menor de edad muestra error`() = runTest {
         // Assuming current year is 2025 (from system prompt), 2010 would be 15 years old
         viewModel.onNameChange("Test User")
         viewModel.onEmailChange("test@example.com")
@@ -83,7 +83,7 @@ class RegisterViewModelTest {
     }
 
     @Test
-    fun `onRegisterClick with existing email shows error`() = runTest {
+    fun `al hacer click en registro con email existente muestra error`() = runTest {
         val email = "existing@example.com"
         `when`(userRepository.getUserByEmail(email)).thenReturn(User(name="Existing", email=email, rut="", birthDate="", phone="", passwordHash=""))
 
@@ -102,7 +102,7 @@ class RegisterViewModelTest {
     }
 
     @Test
-    fun `onRegisterClick with valid data registers user`() = runTest {
+    fun `al hacer click en registro con datos validos registra usuario`() = runTest {
         val email = "new@example.com"
         `when`(userRepository.getUserByEmail(email)).thenReturn(null)
 

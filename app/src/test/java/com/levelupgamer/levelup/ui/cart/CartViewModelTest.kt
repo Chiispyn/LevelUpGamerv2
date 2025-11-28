@@ -57,7 +57,7 @@ class CartViewModelTest {
     }
 
     @Test
-    fun `loadCartItems loads items correctly`() = runTest {
+    fun `cargar items del carrito carga items correctamente`() = runTest {
         val product = Product(
             code = "P001",
             name = "Test Product",
@@ -92,7 +92,7 @@ class CartViewModelTest {
     }
 
     @Test
-    fun `onProductAdded adds item when stock is available`() = runTest {
+    fun `agregar producto agrega item cuando hay stock disponible`() = runTest {
         val product = Product(
             code = "P001",
             name = "Test Product",
@@ -119,7 +119,7 @@ class CartViewModelTest {
     }
 
     @Test
-    fun `onProductAdded emits toast when stock is insufficient`() = runTest {
+    fun `agregar producto emite toast cuando stock es insuficiente`() = runTest {
         val product = Product(
             code = "P001",
             name = "Test Product",
@@ -146,7 +146,7 @@ class CartViewModelTest {
     }
     
     @Test
-    fun `onProductRemoved removes item from cart`() = runTest {
+    fun `eliminar producto elimina item del carrito`() = runTest {
         `when`(cartRepository.getCartItems(1)).thenReturn(flowOf(emptyList()))
         `when`(productRepository.getAllProducts()).thenReturn(flowOf(emptyList()))
         

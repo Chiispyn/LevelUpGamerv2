@@ -66,6 +66,7 @@ Para garantizar la robustez de la aplicación, se ha implementado una estrategia
     *   **Auth:** Tests para `LoginViewModel` y `RegisterViewModel` (validaciones de campos, manejo de errores, registro exitoso).
     *   **Cart:** Tests para `CartViewModel` (agregar/quitar productos, cálculo de stock, manejo de errores).
     *   **Checkout:** Tests para `CheckoutViewModel` (cálculo de totales, aplicación de descuentos/recompensas, creación de órdenes).
+    *   **Total de Tests:** 19 pruebas unitarias cubriendo los flujos críticos de la aplicación.
 
 *   **Reporte de Cobertura (Coverage):**
     *   Se integró el plugin **Kover** (Kotlin Coverage) para generar reportes de cobertura de código.
