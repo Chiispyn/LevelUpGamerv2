@@ -1,7 +1,6 @@
 package com.levelupgamer.levelup.ui.cart
 
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,6 +18,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import com.levelupgamer.levelup.R
 import com.levelupgamer.levelup.model.Product
 import kotlinx.coroutines.flow.collectLatest
 import java.text.NumberFormat
@@ -74,8 +75,10 @@ fun CartItemRow(
 
     Card(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
         Row(modifier = Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
-            Image(
-                painter = painterResource(id = product.imageResId),
+            AsyncImage(
+                model = if (product.imageUrl != null) product.imageUrl else product.imageResId,
+                placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
+                error = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentDescription = product.name,
                 modifier = Modifier.size(64.dp),
                 contentScale = ContentScale.Crop

@@ -1,6 +1,5 @@
 package com.levelupgamer.levelup.data
 
-
 import com.levelupgamer.levelup.R
 import com.levelupgamer.levelup.model.Event
 import com.levelupgamer.levelup.model.Product
@@ -15,52 +14,52 @@ object InitialData {
             Product(
                 code = "JM001", category = "Juegos de Mesa", name = "Catan", price = 29990, quantity = 15,
                 description = "El clásico juego de estrategia y gestión de recursos. ¡Coloniza la isla, comercia y construye tu camino a la victoria!", 
-                imageResId = R.drawable.catan
+                imageResId = R.drawable.catan, imageUrl = null
             ),
             Product(
                 code = "JM002", category = "Juegos de Mesa", name = "Carcassonne", price = 24990, quantity = 12,
                 description = "Un adictivo juego de colocación de losetas donde creas un paisaje medieval, reclamando ciudades, caminos y granjas.", 
-                imageResId = R.drawable.juegocarcassonne
+                imageResId = R.drawable.juegocarcassonne, imageUrl = null
             ),
             Product(
                 code = "AC001", category = "Accesorios", name = "Control Inalámbrico Xbox Series X", price = 59990, quantity = 20,
                 description = "Diseño modernizado, gatillos texturizados y un D-pad híbrido. La mejor herramienta para tus victorias en Xbox.", 
-                imageResId = R.drawable.joystick
+                imageResId = R.drawable.joystick, imageUrl = null
             ),
             Product(
                 code = "AC002", category = "Accesorios", name = "Auriculares HyperX Cloud II", price = 79990, quantity = 8,
                 description = "Sumérgete en el juego con sonido envolvente 7.1. Comodidad legendaria para maratones de gaming.", 
-                imageResId = R.drawable.audifonos
+                imageResId = R.drawable.audifonos, imageUrl = null
             ),
             Product(
                 code = "CO001", category = "Consolas", name = "PlayStation 5", price = 549990, quantity = 5,
                 description = "Experimenta una velocidad sorprendente con su SSD de ultra alta velocidad, inmersión más profunda con soporte para retroalimentación háptica y gatillos adaptativos.", 
-                imageResId = R.drawable.ps5pro
+                imageResId = R.drawable.ps5pro, imageUrl = null
             ),
             Product(
                 code = "CG001", category = "Computadores Gamers", name = "PC Gamer ASUS ROG Strix", price = 1299990, quantity = 3,
                 description = "Potencia y estilo en un solo equipo. Equipado para correr los últimos títulos en ultra sin sudar.", 
-                imageResId = R.drawable.pc
+                imageResId = R.drawable.pc, imageUrl = null
             ),
             Product(
                 code = "SG001", category = "Sillas Gamers", name = "Silla Gamer Secretlab Titan", price = 349990, quantity = 7,
                 description = "Ergonomía de élite para largas sesiones de juego. Tu espalda te lo agradecerá.", 
-                imageResId = R.drawable.silla
+                imageResId = R.drawable.silla, imageUrl = null
             ),
             Product(
                 code = "MS001", category = "Mouse", name = "Mouse Gamer Logitech G502 HERO", price = 49990, quantity = 25,
                 description = "El mouse más popular del mundo, ahora con el sensor HERO 25K para una precisión y capacidad de respuesta inigualables.", 
-                imageResId = R.drawable.mouse
+                imageResId = R.drawable.mouse, imageUrl = null
             ),
             Product(
                 code = "MP001", category = "Mousepad", name = "Mousepad Razer Goliathus Extended", price = 29990, quantity = 30,
                 description = "Una superficie microtexturizada para un seguimiento preciso de píxeles, optimizada para todos los sensores de mouse.", 
-                imageResId = R.drawable.mousepad
+                imageResId = R.drawable.mousepad, imageUrl = null
             ),
             Product(
                 code = "PP001", category = "Poleras Personalizadas", name = "Polera Gamer Personalizada 'Level-Up'", price = 14990, quantity = 50,
                 description = "Viste tu pasión. Polera de algodón de alta calidad con el logo exclusivo de Level-Up Gamer.", 
-                imageResId = R.drawable.polera
+                imageResId = R.drawable.polera, imageUrl = null
             )
         )
     }

@@ -9,6 +9,9 @@ interface ProductDao {
     @Query("SELECT * FROM products")
     fun getAllProducts(): Flow<List<Product>>
 
+    @Query("SELECT * FROM products")
+    suspend fun getAllProductsOnce(): List<Product>
+
     @Query("SELECT * FROM products WHERE code = :code")
     suspend fun getProductByCode(code: String): Product?
 

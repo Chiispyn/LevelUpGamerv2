@@ -1,4 +1,4 @@
-package com.levelupgamer.app.ui
+package com.levelupgamer.levelup.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -16,10 +16,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.levelupgamer.app.ui.CommunityScreen
+import com.levelupgamer.app.ui.EditProfileScreen
+import com.levelupgamer.app.ui.MyOrdersScreen
+import com.levelupgamer.app.ui.OrderConfirmationScreen
+import com.levelupgamer.app.ui.ProfileScreen
 import com.levelupgamer.levelup.MyApp
+import com.levelupgamer.levelup.data.remote.RetrofitInstance
 import com.levelupgamer.levelup.data.repository.ProductRepository
-import com.levelupgamer.levelup.ui.CatalogScreen
-import com.levelupgamer.levelup.ui.HomeScreen
 import com.levelupgamer.levelup.ui.address.AddressScreen
 import com.levelupgamer.levelup.ui.cart.CartScreen
 import com.levelupgamer.levelup.ui.cart.CartViewModel
@@ -27,8 +31,8 @@ import com.levelupgamer.levelup.ui.navigation.NavScreen
 import com.levelupgamer.levelup.ui.rewards.RewardsScreen
 import com.levelupgamer.levelup.ui.rewardsshop.RewardsShopScreen
 import com.levelupgamer.levelup.ui.viewmodel.ViewModelFactory
-import com.levelupgamer.levelup.ui.ProductDetailScreen
 import com.levelupgamer.levelup.ui.eventdetail.EventDetailScreen
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,11 +41,19 @@ fun MainScreen(mainNavController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
 
     val factory = ViewModelFactory(context)
     val cartViewModel: CartViewModel = viewModel(factory = factory)
-    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao()) }
+    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao(), RetrofitInstance.api) }
     
+    // Llama a refreshProducts una sola vez cuando se inicia la pantalla
+    LaunchedEffect(Unit) {
+        scope.launch {
+            productRepository.refreshProducts()
+        }
+    }
+
     val products by productRepository.getAllProducts().collectAsState(initial = emptyList())
     val cartState by cartViewModel.uiState.collectAsState()
 

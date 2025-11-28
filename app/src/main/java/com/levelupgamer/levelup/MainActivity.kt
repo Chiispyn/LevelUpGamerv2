@@ -9,8 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.levelupgamer.app.ui.AdminFeature
-import com.levelupgamer.app.ui.MainScreen
+import com.levelupgamer.levelup.ui.AdminFeature
+import com.levelupgamer.levelup.ui.MainScreen
 import com.levelupgamer.levelup.ui.auth.LoginScreen
 import com.levelupgamer.levelup.ui.auth.RegisterScreen
 import com.levelupgamer.levelup.ui.theme.LevelUpGamerTheme

@@ -1,7 +1,6 @@
 package com.levelupgamer.levelup.ui
 
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -16,7 +15,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.levelupgamer.levelup.MyApp
+import com.levelupgamer.levelup.R
+import com.levelupgamer.levelup.data.remote.RetrofitInstance
 import com.levelupgamer.levelup.data.repository.ProductRepository
 import com.levelupgamer.levelup.model.Product
 import com.levelupgamer.levelup.ui.cart.CartViewModel
@@ -30,7 +32,7 @@ import java.util.Locale
 @Composable
 fun ProductDetailScreen(productCode: String, navController: NavController) {
     val context = LocalContext.current
-    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao()) }
+    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao(), RetrofitInstance.api) }
     val factory = ViewModelFactory(context)
     val reviewViewModel: ReviewViewModel = viewModel(factory = factory)
     val cartViewModel: CartViewModel = viewModel(factory = factory)
@@ -61,8 +63,10 @@ fun ProductDetailScreen(productCode: String, navController: NavController) {
         val formatter = NumberFormat.getCurrencyInstance(Locale("es", "CL"))
 
         Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
-            Image(
-                painter = painterResource(id = p.imageResId),
+            AsyncImage(
+                model = if (p.imageUrl != null) p.imageUrl else p.imageResId,
+                placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
+                error = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentDescription = p.name,
                 modifier = Modifier.height(300.dp).fillMaxWidth(),
                 contentScale = ContentScale.Crop

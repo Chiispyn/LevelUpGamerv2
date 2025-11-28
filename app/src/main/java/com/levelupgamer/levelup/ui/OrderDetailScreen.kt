@@ -1,4 +1,4 @@
-package com.levelupgamer.app.ui
+package com.levelupgamer.levelup.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.levelupgamer.levelup.MyApp
+import com.levelupgamer.levelup.data.remote.RetrofitInstance
 import com.levelupgamer.levelup.data.repository.OrderRepository
 import com.levelupgamer.levelup.data.repository.ProductRepository
 import com.levelupgamer.levelup.model.OrderWithItems
@@ -26,7 +27,7 @@ import java.util.Locale
 fun OrderDetailScreen(orderId: String, navController: NavController) {
     val context = LocalContext.current
     val orderRepository = remember { OrderRepository((context.applicationContext as MyApp).database.orderDao()) }
-    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao()) }
+    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao(), RetrofitInstance.api) }
 
     var orderWithItems by remember { mutableStateOf<OrderWithItems?>(null) }
     var productsInOrder by remember { mutableStateOf<List<Pair<Product, Int>>>(emptyList()) }

@@ -1,4 +1,4 @@
-package com.levelupgamer.app.ui
+package com.levelupgamer.levelup.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.levelupgamer.levelup.MyApp
+import com.levelupgamer.levelup.data.remote.RetrofitInstance
 import com.levelupgamer.levelup.data.repository.*
 import com.levelupgamer.levelup.model.*
 import com.levelupgamer.levelup.util.ShippingManager
@@ -33,7 +34,7 @@ fun CheckoutScreen(navController: NavController, cartItems: List<Pair<Product, I
 
     // Repositories
     val orderRepository = remember { OrderRepository((context.applicationContext as MyApp).database.orderDao()) }
-    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao()) }
+    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao(), RetrofitInstance.api) }
     val addressRepository = remember { AddressRepository((context.applicationContext as MyApp).database.addressDao()) }
     val rewardRepository = remember { RewardRepository((context.applicationContext as MyApp).database.rewardDao()) }
     val userRewardRepository = remember { UserRewardRepository((context.applicationContext as MyApp).database.userRewardDao()) }

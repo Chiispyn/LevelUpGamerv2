@@ -28,7 +28,7 @@ import java.util.concurrent.Executors
         UserReward::class, 
         UserEvent::class
     ], 
-    version = 2,
+    version = 4, // Aumentado de 3 a 4 por el cambio en Product
     exportSchema = false
 )
 @TypeConverters(Converters::class)

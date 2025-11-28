@@ -1,6 +1,5 @@
 package com.levelupgamer.levelup.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -23,7 +22,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.levelupgamer.levelup.MyApp
+import com.levelupgamer.levelup.R
 import com.levelupgamer.levelup.data.repository.ReviewRepository
 import com.levelupgamer.levelup.model.Product
 import com.levelupgamer.levelup.ui.theme.BlueElectric
@@ -122,8 +123,10 @@ fun ProductCard(
         colors = CardDefaults.cardColors(containerColor = Color.DarkGray)
     ) {
         Column {
-            Image(
-                painter = painterResource(id = product.imageResId),
+            AsyncImage(
+                model = if (product.imageUrl != null) product.imageUrl else product.imageResId,
+                placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
+                error = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentDescription = product.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth().height(120.dp)

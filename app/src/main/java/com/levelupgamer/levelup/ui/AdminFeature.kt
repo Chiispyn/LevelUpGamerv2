@@ -1,4 +1,4 @@
-package com.levelupgamer.app.ui
+package com.levelupgamer.levelup.ui
 
 import android.content.Context
 import android.net.Uri
@@ -36,6 +36,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.levelupgamer.levelup.MyApp
 import com.levelupgamer.levelup.R
+import com.levelupgamer.levelup.data.remote.RetrofitInstance
 import com.levelupgamer.levelup.data.repository.*
 import com.levelupgamer.levelup.model.*
 import kotlinx.coroutines.flow.first
@@ -181,7 +182,7 @@ private fun getAdminScreenTitle(route: String?): String {
 @Composable
 private fun AdminProductsScreen(navController: NavController) {
     val context = LocalContext.current
-    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao()) }
+    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao(), RetrofitInstance.api) }
     val products by productRepository.getAllProducts().collectAsState(initial = emptyList())
     val scope = rememberCoroutineScope()
 
@@ -210,7 +211,7 @@ private fun AdminProductsScreen(navController: NavController) {
 private fun ProductEditScreen(navController: NavController, productCode: String?, snackbarHostState: SnackbarHostState) {
     val isEditing = productCode != null
     val context = LocalContext.current
-    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao()) }
+    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao(), RetrofitInstance.api) }
     val scope = rememberCoroutineScope()
 
     var productToEdit by remember { mutableStateOf<Product?>(null) }
@@ -220,6 +221,7 @@ private fun ProductEditScreen(navController: NavController, productCode: String?
     var price by remember { mutableStateOf("") }
     var quantity by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
+    var imageUrl by remember { mutableStateOf("") }
 
     val productCategories = listOf("Consolas", "Videojuegos", "Accesorios", "Poleras", "Figuras")
     var isCategoryMenuExpanded by remember { mutableStateOf(false) }
@@ -229,7 +231,7 @@ private fun ProductEditScreen(navController: NavController, productCode: String?
             scope.launch {
                 productToEdit = productRepository.getProductByCode(productCode!!)
                 productToEdit?.let {
-                    code = it.code; name = it.name; category = it.category; price = it.price.toString(); quantity = it.quantity.toString(); description = it.description
+                    code = it.code; name = it.name; category = it.category; price = it.price.toString(); quantity = it.quantity.toString(); description = it.description; imageUrl = it.imageUrl ?: ""
                 }
             }
         }
@@ -238,6 +240,7 @@ private fun ProductEditScreen(navController: NavController, productCode: String?
     Column(modifier = Modifier.fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState())) {
         OutlinedTextField(value = code, onValueChange = { code = it }, label = { Text("Código (SKU)") }, enabled = !isEditing, modifier = Modifier.fillMaxWidth())
         OutlinedTextField(value = name, onValueChange = { name = it }, label = { Text("Nombre") }, modifier = Modifier.fillMaxWidth())
+        OutlinedTextField(value = imageUrl, onValueChange = { imageUrl = it }, label = { Text("URL de la Imagen") }, modifier = Modifier.fillMaxWidth())
 
         ExposedDropdownMenuBox(expanded = isCategoryMenuExpanded, onExpandedChange = { isCategoryMenuExpanded = !isCategoryMenuExpanded }, modifier = Modifier.padding(vertical = 8.dp)) {
             OutlinedTextField(value = category, onValueChange = {}, label = { Text("Categoría") }, readOnly = true, trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isCategoryMenuExpanded) }, modifier = Modifier.menuAnchor().fillMaxWidth())
@@ -260,7 +263,8 @@ private fun ProductEditScreen(navController: NavController, productCode: String?
                 price = price.toIntOrNull() ?: 0,
                 quantity = quantity.toIntOrNull() ?: 0,
                 description = description,
-                imageResId = productToEdit?.imageResId ?: R.drawable.ic_launcher_foreground, // Conservar imagen existente o usar una por defecto
+                imageUrl = imageUrl.ifBlank { null },
+                imageResId = if (imageUrl.isNotBlank()) null else productToEdit?.imageResId ?: R.drawable.ic_launcher_foreground,
                 averageRating = productToEdit?.averageRating ?: 0f
             )
 
@@ -516,7 +520,7 @@ private fun AdminOrdersScreen(navController: NavController) {
 private fun AdminOrderDetailScreen(orderId: String) {
     val context = LocalContext.current
     val orderRepository = remember { OrderRepository((context.applicationContext as MyApp).database.orderDao()) }
-    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao()) }
+    val productRepository = remember { ProductRepository((context.applicationContext as MyApp).database.productDao(), RetrofitInstance.api) }
     var orderWithItems by remember { mutableStateOf<OrderWithItems?>(null) }
     var enrichedItems by remember { mutableStateOf<List<EnrichedOrderItem>>(emptyList()) }
 

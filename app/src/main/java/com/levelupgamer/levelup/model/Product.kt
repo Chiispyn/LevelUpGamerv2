@@ -1,8 +1,8 @@
 package com.levelupgamer.levelup.model
 
+import androidx.annotation.DrawableRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.levelupgamer.levelup.R
 
 @Entity(tableName = "products")
 data class Product(
@@ -12,6 +12,7 @@ data class Product(
     val price: Int,
     val description: String = "",
     val quantity: Int = 1,
-    val imageResId: Int = R.drawable.ic_launcher_foreground, // Campo actualizado para usar recursos drawable
+    val imageUrl: String? = null,      // URL para imágenes de la API
+    @DrawableRes val imageResId: Int? = null, // ID para imágenes locales (ahora persistido y anulable)
     val averageRating: Float = 0f
 )
